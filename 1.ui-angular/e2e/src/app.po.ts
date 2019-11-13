@@ -1,8 +1,8 @@
 import { browser, by, element } from 'protractor';
 
 export class AppPage {
-  navigateTo() {
-    return browser.get(browser.baseUrl) as Promise<any>;
+  navigateTo(url = "") {
+    return browser.get(`${browser.baseUrl}${url}`) as Promise<any>;
   }
 
   getLoginFormLabel() {
