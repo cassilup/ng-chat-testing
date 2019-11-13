@@ -1,0 +1,7 @@
+<div #messagesWrapper class="message-list-wrapper">
+  <ul class="message-list">
+    <li *ngFor="let message of messages; let i=index; trackBy: trackById">
+      {{i + 1}}: {{message.text}}
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,23 @@
+.app-wrapper {
+  position: absolute;
+  top: 20vh;
+  bottom: 20vh;
+  left: 0;
+  right: 0;
+  max-width: 50%;
+  margin: 0 auto;
+  min-width: 310px;
+  min-height: 300px;
+  border-radius: 10px;
+  border-top-right-radius: 0;
+  background: white;
+  box-shadow: 0 10px 50px -24px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+app-message-list {
+  flex: 1;
+  overflow: scroll;
+}

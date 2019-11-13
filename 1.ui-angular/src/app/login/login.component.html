@@ -1,0 +1,30 @@
+<div class="login-form">
+  <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
+    <label>
+      Username
+      <input type="text" id="username" formControlName="username" required/>
+    </label>
+    <label>
+      Password
+      <input type="password" id="password" formControlName="password"/>
+    </label>
+
+    <button type="submit" class="submit-btn" [disabled]="!loginForm.valid">Login</button>
+  </form>
+
+  <div *ngIf="error">{{ error }}</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- {{outsideData | json}} -->
