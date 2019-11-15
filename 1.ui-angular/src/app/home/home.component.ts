@@ -8,7 +8,7 @@ import { ChatService } from '../shared/chat.service';
 })
 export class HomeComponent implements OnInit {
   messages = [];
-  advancedMode = false;
+  aTestProp = "hey there";
 
   constructor(public chatService:ChatService) { }
 
