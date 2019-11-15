@@ -18,8 +18,6 @@ export class LoginComponent {
   })
 
   doLogin = function() {
-    this.authenticationService.login(this.loginForm.value).subscribe((result) => {
-      console.log("in login.component.ts", result);
-    });
+    this.authenticationService.login(this.loginForm.value);
   }
 }
