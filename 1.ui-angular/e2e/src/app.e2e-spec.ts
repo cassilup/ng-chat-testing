@@ -1,25 +1,30 @@
-import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import { browser, element, by, ExpectedConditions } from "protractor";
 
-describe('workspace-project App', () => {
-  let page: AppPage;
+it("should check that opening the app redirects to '/login'", async () => {
+  await browser.get("");
+  const currentUrl: string = await browser.getCurrentUrl();
+  expect(currentUrl).toContain("/login");
+});
 
-  beforeEach(() => {
-    page = new AppPage();
-  });
+it("should type something", async () => {
+  browser.get("");
+  await element(by.id("username")).sendKeys("automated typing");
+  browser.sleep(1000);
+});
 
-  it('should start at the login page', async () => {
-    page.navigateTo();
-    browser.waitForAngular();
-    const currentUrl = await browser.getCurrentUrl()
-    expect(currentUrl).toContain("/login");
-  });
+fit("should attempt to login and check that it redirects to /home", async () => {
+  browser.waitForAngularEnabled(false);
+  browser.get("");
 
-  afterEach(async () => {
-    // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE,
-    } as logging.Entry));
-  });
+  await element(by.id("username")).sendKeys("admin");
+  await element(by.id("password")).sendKeys("pass");
+
+  element(by.css(".submit-btn")).click();
+
+  // browser.wait(ExpectedConditions.presenceOf(element(by.css('.message-list'))), 5000);
+
+  const currentUrl: string = await browser.getCurrentUrl();
+  expect(currentUrl).toContain("/home");
+
+  browser.sleep(5000);
 });

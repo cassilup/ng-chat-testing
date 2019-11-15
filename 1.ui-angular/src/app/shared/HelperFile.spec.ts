@@ -1,8 +1,9 @@
 import {add} from "./HelperFile.js";
 
-describe('HelperFile', () => {
+fdescribe('HelperFile', () => {
   it('should add 2 files', () => {
-    const sum = add(2, 3);
+    let sum = add(2, 3);
+    sum = 10;
     expect(sum).toEqual(5);
   });
 });
