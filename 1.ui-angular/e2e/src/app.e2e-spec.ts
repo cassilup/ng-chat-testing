@@ -1,30 +1,52 @@
-import { browser, element, by, ExpectedConditions } from "protractor";
+import { browser, element, by, ExpectedConditions, Key } from "protractor";
+import { AppPage } from "./app.po";
 
-it("should check that opening the app redirects to '/login'", async () => {
-  await browser.get("");
-  const currentUrl: string = await browser.getCurrentUrl();
-  expect(currentUrl).toContain("/login");
-});
+const page = new AppPage();
 
-it("should type something", async () => {
-  browser.get("");
-  await element(by.id("username")).sendKeys("automated typing");
-  browser.sleep(1000);
-});
+describe("ng-chat-testing", () => {
+  beforeEach(async () => {
+    await browser.waitForAngularEnabled(false);
+  });
 
-fit("should attempt to login and check that it redirects to /home", async () => {
-  browser.waitForAngularEnabled(false);
-  browser.get("");
+  it("should check that opening the app redirects to '/login'", async () => {
+    page.navigateTo("");
+    const currentUrl: string = await page.getCurrentUrl();
+    expect(currentUrl).toContain("/login");
+  });
 
-  await element(by.id("username")).sendKeys("admin");
-  await element(by.id("password")).sendKeys("pass");
+  it("should type something", async () => {
+    page.navigateTo("");
+    await page.usernameElement.sendKeys("automated typing");
+    browser.sleep(1000);
+  });
 
-  element(by.css(".submit-btn")).click();
+  it("should attempt to login and check that it redirects to /home", async () => {
+    page.navigateTo("");
 
-  // browser.wait(ExpectedConditions.presenceOf(element(by.css('.message-list'))), 5000);
+    await page.usernameElement.sendKeys("admin");
+    await page.passwordElement.sendKeys("pass");
 
-  const currentUrl: string = await browser.getCurrentUrl();
-  expect(currentUrl).toContain("/home");
+    page.submitButton.click();
 
-  browser.sleep(5000);
+    const currentUrl: string = await browser.getCurrentUrl();
+    expect(currentUrl).toContain("/home");
+
+    browser.sleep(5000);
+  });
+
+  it('should send a random message and see that it appears in the list', () => {
+    page.navigateTo("/home");
+
+    const randomMessage = Math.random().toString(36).substring(2);
+    const newMessageInput = element(by.css('.new-message'));
+
+    newMessageInput.sendKeys(randomMessage);
+    newMessageInput.sendKeys(Key.ENTER);
+
+    const lastMessage = element.all(by.css('.message-list li')).last();
+
+    expect(lastMessage.getText()).toContain(randomMessage);
+
+    browser.sleep(2000);
+  });
 });

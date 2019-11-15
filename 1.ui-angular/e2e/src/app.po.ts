@@ -1,11 +1,15 @@
-import { browser, by, element } from 'protractor';
+import { browser, element, by } from 'protractor';
 
 export class AppPage {
-  navigateTo() {
-    return browser.get(browser.baseUrl) as Promise<any>;
+  async navigateTo(url) {
+    return await browser.get(url);
   }
 
-  getLoginFormLabel() {
-    return element(by.css('app-root .login-form label')).getText() as Promise<string>;
+  async getCurrentUrl() {
+    return await browser.getCurrentUrl();
   }
+
+  usernameElement = element(by.id("username"));
+  passwordElement = element(by.id("password"));
+  submitButton = element(by.css(".submit-btn"));
 }
